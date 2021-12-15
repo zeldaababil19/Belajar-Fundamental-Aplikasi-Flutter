@@ -1,7 +1,9 @@
 part of 'widget.dart';
 
 class CardRestauranWidget extends StatelessWidget {
-  const CardRestauranWidget({required this.restaurant});
+  const CardRestauranWidget({
+    required this.restaurant,
+  });
   final Restaurant restaurant;
 
   @override
@@ -11,55 +13,84 @@ class CardRestauranWidget extends StatelessWidget {
         return FutureBuilder<bool>(
           future: provider.isFavorite(restaurant.id),
           builder: (context, snapshot) {
-            return Card(
-              child: ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 7.0),
-                leading: Hero(
-                  tag: restaurant.id,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Image.network(
-                      "${ApiService.imageUrl}medium/${restaurant.pictureId}",
-                      width: 100,
-                      height: 110,
-                      fit: BoxFit.cover,
+            var isFavorited = snapshot.data ?? false;
+            return GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, DetailPage.routeName, arguments: restaurant);
+              },
+              child: Card(
+                  child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Hero(
+                      tag: restaurant.pictureId,
+                      child: Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: Image.network(
+                                "https://restaurant-api.dicoding.dev/images/medium/" + restaurant.pictureId,
+                              ).image,
+                            ),
+                            borderRadius: BorderRadius.circular(25)),
+                      ),
                     ),
                   ),
-                ),
-                title: Text(
-                  restaurant.name,
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                subtitle: Column(
-                  children: [
-                    Row(children: [
-                      Icon(
-                        Icons.location_pin,
-                        size: 15,
-                        color: Colors.green,
+                  Expanded(
+                    child: SizedBox(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Expanded(
+                          Text(
+                            restaurant.name,
+                            style: boldBaseFont,
+                          ),
+                          // SizedBox(
+                          //   height: 20,
+                          // ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    size: 15,
+                                    color: Colors.yellow,
+                                  ),
+                                  Text(
+                                    restaurant.rating.toString(),
+                                    style: mediumBaseFont,
+                                  ),
+                                ],
+                              ),
+                              // Container(
+                            ],
+                          ),
+                          // SizedBox(
+                          //   height: 10,
+                          // ),
+                          Row(children: [
+                            const Icon(
+                              Icons.location_pin,
+                              size: 15,
+                              color: Colors.green,
+                            ),
+                            Text(
+                              restaurant.city,
+                              style: mediumBaseFont,
+                            ),
+                          ]),
+                        ],
                       ),
-                      Text(
-                        " " + restaurant.city,
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                    ]),
-                    Row(children: [
-                      Icon(
-                        Icons.star,
-                        size: 15,
-                        color: Colors.yellow,
-                      ),
-                      Text(
-                        " " + restaurant.rating.toString(),
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                    ]),
-                  ],
-                ),
-                onTap: () {
-                  Navigator.pushNamed(context, DetailPage.routeName, arguments: restaurant);
-                },
-              ),
+                    ),
+                  ),
+                ],
+              )),
             );
           },
         );

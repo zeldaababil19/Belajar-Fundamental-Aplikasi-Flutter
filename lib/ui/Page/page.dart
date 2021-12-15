@@ -10,6 +10,7 @@ import 'package:submission_ketiga/ui/ui.dart';
 import 'package:submission_ketiga/ui/widget/widget.dart';
 import 'package:submission_ketiga/utils/util.dart';
 
+
 part 'home_screen.dart';
 part 'splash_screen.dart';
 part 'detail_screen.dart';

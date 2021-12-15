@@ -22,7 +22,7 @@ class RestaurantProvider extends ChangeNotifier {
     try {
       _state = ResultState.loading;
       notifyListeners();
-      final result = await apiService.getRestaurantsList();
+      final result = await apiService.getRestaurantsList(Client());
       notifyListeners();
       _state = ResultState.withData;
       notifyListeners();

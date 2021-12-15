@@ -59,12 +59,16 @@ class _NavbarState extends State<Navbar> {
                 label: "Favorite",
                 icon: "assets/favorite.png",
                 activeIcon: "assets/favorite_active.png",
+                // icon: "{$Icons.home}",
+                // activeIcon: '{$homeActive}',
               ),
               _buildBottomNavBarItem(
                 context,
                 label: "Setting",
                 icon: "assets/setting.png",
                 activeIcon: "assets/setting_active.png",
+                // icon: "{$Icons.home}",
+                // activeIcon: '{$homeActive}',
               ),
             ],
           ),
@@ -74,7 +78,7 @@ class _NavbarState extends State<Navbar> {
   }
 }
 
-BottomNavigationBarItem _buildBottomNavBarItem(BuildContext context, {required String label, required String icon, required String activeIcon}) {
+BottomNavigationBarItem _buildBottomNavBarItem(BuildContext context, {required String label, required dynamic icon, required dynamic activeIcon}) {
   return BottomNavigationBarItem(
     label: label,
     icon: (label == "Profile")

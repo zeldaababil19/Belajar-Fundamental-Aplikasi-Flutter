@@ -1,0 +1,7 @@
+{
+  "editor.bracketPairColorization.enabled": true,
+  "files.autoSave": "afterDelay",
+  "editor.fontFamily": "'Dank Mono'",
+  "editor.columnSelection": false,
+  "editor.defaultFormatter": "TabNine.tabnine-vscode"
+}

@@ -29,9 +29,9 @@ class DetailRestaurant extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.vertical(bottom: Radius.circular(25)),
                             child: Hero(
-                                tag: restaurant.id,
+                                tag: restaurant.pictureId,
                                 child: Image.network(
-                                  "${ApiService.imageUrl}medium/" + restaurant.pictureId,
+                                  "https://restaurant-api.dicoding.dev/images/medium/" + restaurant.pictureId,
                                   height: 350,
                                   fit: BoxFit.cover,
                                 )),
@@ -54,7 +54,7 @@ class DetailRestaurant extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 275, left: 325),
+                            margin: EdgeInsets.only(top: 275, left: 15),
                             child: FloatingActionButton(
                               backgroundColor: Color(0xFF98bd8f),
                               elevation: 0.0,
@@ -86,14 +86,30 @@ class DetailRestaurant extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            restaurant.name,
-                            style: Theme.of(context).textTheme.headline6,
-                            textAlign: TextAlign.left,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                restaurant.name,
+                                style: Theme.of(context).textTheme.headline6,
+                                textAlign: TextAlign.left,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.yellow[700],
+                                  ),
+                                  Text(
+                                    restaurant.rating.toString(),
+                                    style: Theme.of(context).textTheme.subtitle1,
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                           SizedBox(
-                            height: 10,
-                            width: null,
+                            height: 8,
                           ),
                           Row(
                             children: [
@@ -101,39 +117,20 @@ class DetailRestaurant extends StatelessWidget {
                                 Icons.location_on,
                                 color: Colors.black54,
                               ),
-                              Text(
-                                restaurant.city,
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                restaurantDetailed.address,
-                                style: Theme.of(context).textTheme.subtitle1,
-                                textAlign: TextAlign.left,
+                              Expanded(
+                                child: SizedBox(
+                                  child: Text(
+                                    restaurant.city + ' ' + restaurantDetailed.address,
+                                    style: Theme.of(context).textTheme.subtitle1,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
                           SizedBox(
                             height: 10,
                           ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Colors.yellow[700],
-                              ),
-                              Text(
-                                restaurant.rating.toString(),
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
-                            ],
-                          ),
                           SizedBox(
-                            height: 10,
-                          ),
-                          Container(
                             height: 50,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
@@ -144,7 +141,7 @@ class DetailRestaurant extends StatelessWidget {
                                     Theme(
                                       data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
                                       child: Chip(
-                                        backgroundColor: Color(0xFF98bd8f).withOpacity(0.7),
+                                        backgroundColor: accentColor.withOpacity(0.7),
                                         label: Text(
                                           restaurantDetailed.categories[index].name,
                                           style: Theme.of(context).textTheme.bodyText2,
@@ -162,23 +159,33 @@ class DetailRestaurant extends StatelessWidget {
                           SizedBox(
                             height: 25,
                           ),
-                          Text(
-                            "Tentang",
-                            style: Theme.of(context).textTheme.subtitle2,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            restaurant.description,
-                            textAlign: TextAlign.justify,
-                            style: Theme.of(context).textTheme.subtitle1,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            height: 20,
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Description",
+                                    style: Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    restaurant.description,
+                                    textAlign: TextAlign.justify,
+                                    style: Theme.of(context).textTheme.subtitle1,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                color: Colors.grey.withOpacity(0.2),
+                                width: 1,
+                              ),
+                            ),
                           ),
                           SizedBox(
                             height: 10,

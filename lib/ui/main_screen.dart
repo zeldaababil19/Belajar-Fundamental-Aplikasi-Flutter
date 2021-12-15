@@ -34,6 +34,7 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     HomePage(),
                     FavoritePage(
+                      key: Key('Favorite_navBar'),
                       dbProvider: databaseProvider,
                     ),
                     SettingPage(),
